@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp-deployment-redact
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: myapp
+  template:
+    metadata:
+      labels:
+        app: myapp
+    spec:
+      containers:
+        - command:
+          - sh
+          - echo "Hi..."
+        - name: myapp-container
+          image: vish/stress
+          ports:
+            - containerPort: 8080
+          env:
+            - name: pwd1
+              value: test1
+            - name: xyz
+              value: test2
